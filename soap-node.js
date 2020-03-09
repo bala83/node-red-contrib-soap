@@ -21,7 +21,7 @@ module.exports = function (RED) {
                 soap.createClient(server.wsdl, msg.options||{}, function (err, client) {
                     if (err) {
                         node.status({fill: "red", shape: "dot", text: "WSDL Config Error: " + err});
-                        node.error("WSDL Config Error: " + err);
+                        node.error("WSDL Config Error: " + err, err);
                         return;
                     }
                     switch (node.server.auth) {
@@ -47,7 +47,7 @@ module.exports = function (RED) {
                         client[node.method](msg.payload, function (err, result) {
                             if (err) {
                                 node.status({fill: "red", shape: "dot", text: "Service Call Error: " + err});
-                                node.error("Service Call Error: " + err);
+                                node.error("Service Call Error: " + err, err);
                                 return;
                             }
                             node.status({fill:"green", shape:"dot", text:"SOAP result received"});
